@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class OrderService implements OrderServiceInterface{
+public class OrderService {
     @Autowired
     private OrderRepository repository;
 
-    @Override
+
     public List<Order> getAllOrders() {
         return repository.findAll();
+    }
+    
+    public void addOrder(Order order) {
+        repository.save(order);
     }
 }
