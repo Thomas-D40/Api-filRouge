@@ -1,11 +1,14 @@
 package fr.m2i.apicrm.controller;
 
+import fr.m2i.apicrm.DTO.OrderDTO;
+import fr.m2i.apicrm.DTO.OrderMapper;
 import fr.m2i.apicrm.entity.Order;
 
 import fr.m2i.apicrm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,23 +18,29 @@ public class OrderController {
     private OrderService service;
 
     @GetMapping
-    public List<Order> getOrders() {
-        return service.getAllOrders();
+    public List<OrderDTO> getOrders() {
+        
+        List<Order> orders = service.getAllOrders();
+        List<OrderDTO> ordersDTO = new ArrayList<>();
+        for (Order order: orders) {
+            ordersDTO.add(OrderMapper.buildOrderDTO(order));
+        }
+        return ordersDTO;
     }
     
     @GetMapping("/{id}")
-    public Order getOrderById(@PathVariable Long id) {
-        return service.getOrderById(id);
+    public OrderDTO getOrderById(@PathVariable Long id) {
+        return OrderMapper.buildOrderDTO(service.getOrderById(id));
     }
     
     @PostMapping
-    public void createOrder(@RequestBody Order order) {
-        service.addOrder(order);
+    public void createOrder(@RequestBody OrderDTO orderDTO) {
+        service.addOrder(OrderMapper.buildOrder(orderDTO));
     }
     
     @PutMapping("/{id}")
-    public @ResponseBody String updateOrder(@RequestBody Order order) {
-        service.updateOrder(order);
+    public @ResponseBody String updateOrder(@RequestBody OrderDTO orderDTO) {
+        service.addOrder(OrderMapper.buildOrder(orderDTO));
         return "Mise à jour effectuée";
     }
     
