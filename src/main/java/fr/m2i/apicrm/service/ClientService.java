@@ -1,6 +1,6 @@
 package fr.m2i.apicrm.service;
 
-import fr.m2i.apicrm.model.Client;
+import fr.m2i.apicrm.entity.Client;
 import fr.m2i.apicrm.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

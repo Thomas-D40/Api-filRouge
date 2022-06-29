@@ -1,10 +1,13 @@
 package fr.m2i.apicrm.controller;
 
-import fr.m2i.apicrm.model.Client;
+import fr.m2i.apicrm.DTO.ClientDTO;
+import fr.m2i.apicrm.DTO.ClientMapper;
+import fr.m2i.apicrm.entity.Client;
 import fr.m2i.apicrm.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,23 +18,31 @@ public class ClientController {
 	private ClientService service;
 	
 	@GetMapping
-	public List<Client> getAll() {
-		return service.getAllClients();
+	public List<ClientDTO> getAll() {
+		List<Client> clients = service.getAllClients();
+		List<ClientDTO> clientsDTO = new ArrayList<>();
+		for (Client client:clients) {
+			clientsDTO.add(ClientMapper.buildClientDTO(client));
+		}
+		return clientsDTO;
 	}
 	
 	@GetMapping("/{id}")
-	public Client getClientById(@PathVariable Long id) {
-		return service.getClientById(id);
+	public ClientDTO getClientById(@PathVariable Long id) {
+		Client client = service.getClientById(id);
+		return ClientMapper.buildClientDTO(client);
 	}
 	
 	@PostMapping
-	public @ResponseBody String addClient(@RequestBody Client client) {
+	public @ResponseBody String addClient(@RequestBody ClientDTO clientDTO) {
+		Client client = ClientMapper.buildClient(clientDTO);
 		service.addClient(client);
 		return "Ajout du client effectué";
 	}
 	
 	@PutMapping("/{id}")
-	public @ResponseBody String updateClient(@RequestBody Client client) {
+	public @ResponseBody String updateClient(@RequestBody ClientDTO clientDTO) {
+		Client client = ClientMapper.buildClient(clientDTO);
 		service.updateClient(client);
 		return "Mise à jour effectuée";
 	}

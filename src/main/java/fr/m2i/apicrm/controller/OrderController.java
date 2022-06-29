@@ -1,6 +1,6 @@
 package fr.m2i.apicrm.controller;
 
-import fr.m2i.apicrm.model.Order;
+import fr.m2i.apicrm.entity.Order;
 
 import fr.m2i.apicrm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

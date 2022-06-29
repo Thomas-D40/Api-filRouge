@@ -1,4 +1,4 @@
-package fr.m2i.apicrm.model;
+package fr.m2i.apicrm.entity;
 
 import javax.persistence.*;
 
