@@ -1,6 +1,6 @@
 package fr.m2i.apicrm.repository;
 
-import fr.m2i.apicrm.entity.Order;
+import fr.m2i.apicrm.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package fr.m2i.apicrm.entity;
+package fr.m2i.apicrm.model;
 
 import javax.persistence.*;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "clients")
 public class Client {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@Column(name = "companyName", length = 100)
 	private String companyName;

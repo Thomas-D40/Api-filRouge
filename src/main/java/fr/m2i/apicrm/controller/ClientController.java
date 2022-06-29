@@ -1,6 +1,6 @@
 package fr.m2i.apicrm.controller;
 
-import fr.m2i.apicrm.entity.Client;
+import fr.m2i.apicrm.model.Client;
 import fr.m2i.apicrm.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

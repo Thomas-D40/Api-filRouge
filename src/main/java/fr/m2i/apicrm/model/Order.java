@@ -1,4 +1,4 @@
-package fr.m2i.apicrm.entity;
+package fr.m2i.apicrm.model;
 
 import javax.persistence.*;
 
@@ -9,9 +9,11 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	
-	@Column(name = "clientId")
-	private int clientId;
+	@ManyToOne
+	@JoinColumn(name = "clientId")
+	private Client client;
 	@Column(name = "typePresta")
 	private String typePresta;
 	@Column(name = "designation")
@@ -34,12 +36,12 @@ public class Order {
 		this.id = id;
 	}
 	
-	public int getClientId() {
-		return clientId;
+	public Client getClient() {
+		return client;
 	}
 	
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 	
 	public String getTypePresta() {
@@ -82,17 +84,18 @@ public class Order {
 		this.state = state;
 	}
 	
-
+	
 	@Override
 	public String toString() {
-		return "Order{" +
-				"id=" + id +
-				", clientId=" + clientId +
-				", typePresta='" + typePresta + '\'' +
-				", designation='" + designation + '\'' +
-				", nbDays=" + nbDays +
-				", unitPrice=" + unitPrice +
-				", state=" + state +
-				'}';
+		final StringBuilder sb = new StringBuilder("Order{");
+		sb.append("id=").append(id);
+		sb.append(", client=").append(client);
+		sb.append(", typePresta='").append(typePresta).append('\'');
+		sb.append(", designation='").append(designation).append('\'');
+		sb.append(", nbDays=").append(nbDays);
+		sb.append(", unitPrice=").append(unitPrice);
+		sb.append(", state=").append(state);
+		sb.append('}');
+		return sb.toString();
 	}
 }
