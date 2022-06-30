@@ -9,26 +9,28 @@ import java.util.List;
 @Service
 public class OrderService {
     @Autowired
-    private OrderRepository repository;
+    private OrderRepository orderRepository;
 
 
     public List<Order> getAllOrders() {
-        return repository.findAll();
+        return orderRepository.findAll();
     }
     
     public Order getOrderById(Long id) {
-        return repository.findById(id).get();
+        return orderRepository.findById(id).get();
     }
     
     public void addOrder(Order order) {
-        repository.save(order);
+        orderRepository.save(order);
     }
     
     public void updateOrder(Order order) {
-        repository.save(order);
+       if (orderRepository.existsById(order.getId())) {
+           orderRepository.save(order);
+       }
     }
     
     public void deleteOrderById(Long id) {
-        repository.deleteById(id);
+        orderRepository.deleteById(id);
     }
 }

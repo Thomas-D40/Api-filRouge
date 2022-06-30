@@ -8,7 +8,7 @@ public class OrderDTO {
 	
 	
 	private Long id;
-	private ClientDTO clientDTO;
+	private ClientDTO client;
 	private String typePresta;
 	private String designation;
 	private int nbDays;
@@ -70,10 +70,10 @@ public class OrderDTO {
 	}
 	
 	public ClientDTO getClientDTO() {
-		return clientDTO;
+		return client;
 	}
 	
-	public void setClientDTO(ClientDTO clientDTO) {
-		this.clientDTO = clientDTO;
+	public void setClient(ClientDTO clientDTO) {
+		this.client = clientDTO;
 	}
 }

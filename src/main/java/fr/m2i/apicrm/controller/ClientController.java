@@ -5,10 +5,13 @@ import fr.m2i.apicrm.DTO.ClientMapper;
 import fr.m2i.apicrm.entity.Client;
 import fr.m2i.apicrm.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clients")
@@ -28,9 +31,16 @@ public class ClientController {
 	}
 	
 	@GetMapping("/{id}")
-	public ClientDTO getClientById(@PathVariable Long id) {
-		Client client = service.getClientById(id);
-		return ClientMapper.buildClientDTO(client);
+	public ResponseEntity<ClientDTO> getClientById(@PathVariable Long id) {
+		Optional<Client> clientOptional = service.getClientById(id);
+		if (clientOptional.isPresent()) {
+			Client client = clientOptional.get();
+			
+			return ResponseEntity.status(200).body(ClientMapper.buildClientDTO(client));
+			
+		}
+		return ResponseEntity.notFound().build();
+		
 	}
 	
 	@PostMapping

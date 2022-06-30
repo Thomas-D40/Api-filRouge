@@ -1,5 +1,7 @@
 package fr.m2i.apicrm.DTO;
 
+import fr.m2i.apicrm.controller.ClientController;
+import fr.m2i.apicrm.entity.Client;
 import fr.m2i.apicrm.entity.Order;
 
 public class OrderMapper {
@@ -7,7 +9,7 @@ public class OrderMapper {
 	public static OrderDTO buildOrderDTO(Order order) {
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setId(order.getId());
-		orderDTO.setClientDTO(ClientMapper.buildClientDTO(order.getClient()));
+		orderDTO.setClient(ClientMapper.buildClientDTO(order.getClient()));
 		orderDTO.setTypePresta(order.getTypePresta());
 		orderDTO.setDesignation(order.getDesignation());
 		orderDTO.setNbDays(order.getNbDays());
@@ -27,10 +29,9 @@ public class OrderMapper {
 
 	}
 	
-	public static Order buildOrder(OrderDTO orderDTO) {
+	public static Order buildOrder(OrderDTO orderDTO, Client client) {
 		Order order = new Order();
 		order.setId(orderDTO.getId());
-		order.setClient(ClientMapper.buildClient(orderDTO.getClientDTO()));
 		order.setTypePresta(orderDTO.getTypePresta());
 		order.setDesignation(orderDTO.getDesignation());
 		order.setNbDays(orderDTO.getNbDays());
@@ -45,6 +46,9 @@ public class OrderMapper {
 				order.setState(2);
 				break;
 		}
+		
+		
+		order.setClient(client);
 		
 		return order;
 	}

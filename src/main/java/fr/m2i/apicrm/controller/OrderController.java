@@ -2,8 +2,10 @@ package fr.m2i.apicrm.controller;
 
 import fr.m2i.apicrm.DTO.OrderDTO;
 import fr.m2i.apicrm.DTO.OrderMapper;
+import fr.m2i.apicrm.entity.Client;
 import fr.m2i.apicrm.entity.Order;
 
+import fr.m2i.apicrm.service.ClientService;
 import fr.m2i.apicrm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService service;
+    @Autowired
+    private ClientService clientService;
 
     @GetMapping
     public List<OrderDTO> getOrders() {
@@ -35,12 +39,14 @@ public class OrderController {
     
     @PostMapping
     public void createOrder(@RequestBody OrderDTO orderDTO) {
-        service.addOrder(OrderMapper.buildOrder(orderDTO));
+        Client client = clientService.getClientById(orderDTO.getClientDTO().getId()).get();
+        service.addOrder(OrderMapper.buildOrder(orderDTO, client));
     }
     
     @PutMapping("/{id}")
     public @ResponseBody String updateOrder(@RequestBody OrderDTO orderDTO) {
-        service.addOrder(OrderMapper.buildOrder(orderDTO));
+        Client client = clientService.getClientById(orderDTO.getClientDTO().getId()).get();
+        service.addOrder(OrderMapper.buildOrder(orderDTO, client));
         return "Mise à jour effectuée";
     }
     
